@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中目黒のバー629</title>
+  
+  <!-- Tailwind CSS の読み込み -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- React の読み込み -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
+  <!-- Babel (ブラウザ上でReactを動かすための翻訳機能) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <style>
+    /* スムーススクロールのための設定 */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body>
+  <!-- ここにReactのアプリが表示されます -->
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    // --- アイコンコンポーネント (lucide-reactの代わりにSVGを直接定義) ---
+    const Menu = ({ size = 24, className = "" }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+    );
+    const X = ({ size = 24, className = "" }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    );
+    const Clock = ({ size = 24, className = "" }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    );
+    const Instagram = ({ size = 24, className = "" }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+    );
+    const Star = ({ size = 24, className = "" }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    );
+
+    // --- メインアプリ ---
+    function App() {
+      const [isMenuOpen, setIsMenuOpen] = useState(false);
+      const [scrolled, setScrolled] = useState(false);
+
+      const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+      // スクロール時にナビゲーションバーのスタイルを変更
+      useEffect(() => {
+        document.title = "中目黒のバー629";
+        const handleScroll = () => {
+          setScrolled(window.scrollY > 50);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      const navLinks = [
+        { name: 'Top', href: '#top' },
+        { name: 'About Us', href: '#about' },
+        { name: 'Menu', href: '#menu' },
+        { name: 'Access', href: '#access' },
+      ];
+
+      // メニューデータ
+      const menuCategories = [
+        {
+          title: "Scotch Whisky",
+          items: [
+            { name: "ザ・マッカラン 12 年〔S.O.C〕", price: "¥2,000" },
+            { name: "グレンリベット 12 年", price: "¥1,300" },
+            { name: "クラガンモア 12 年", price: "¥1,200" },
+            { name: "ラフロイグ 10 年", price: "¥1,600" },
+            { name: "カリラ 12 年", price: "¥1,500" },
+            { name: "ブルックラディ", price: "¥1,400" },
+            { name: "ボウモア 12 年", price: "¥1,400" },
+            { name: "アードベック 10 年", price: "¥1,400" },
+            { name: "ラガヴーリン 16 年", price: "¥1,900" },
+            { name: "グレンファークラス 12 年", price: "¥1,600" },
+            { name: "オーバン 14 年", price: "¥1,800" },
+            { name: "アランモルト 10 年", price: "¥1,500" },
+            { name: "タリスカー 10 年", price: "¥1,500" },
+          ]
+        },
+        {
+          title: "Bourbon & Tennessee Whiskey",
+          items: [
+            { name: "ジャックダニエル BK", price: "¥900" },
+            { name: "I.W ハーパー G メダル", price: "¥900" },
+            { name: "メーカーズマーク", price: "¥1,000" },
+          ]
+        },
+        {
+          title: "Blended Whiskey",
+          items: [
+            { name: "オールドパー 12 年", price: "¥1,200" },
+            { name: "カナディアンクラブ", price: "¥900" },
+          ]
+        },
+        {
+          title: "Japanese Whiskey",
+          items: [
+            { name: "山崎", price: "¥1,700" },
+            { name: "白州", price: "¥1,700" },
+            { name: "響 Japanese Harmony", price: "¥1,700" },
+            { name: "響 Blender’s Choice", price: "¥2,300" },
+            { name: "サントリー角 復刻版", price: "¥1,000" },
+            { name: "竹鶴", price: "¥1,700" },
+            { name: "ザ・ニッカ", price: "¥1,800" },
+            { name: "ニッカ フロンティア", price: "¥1,000" },
+            { name: "イチローズモルト Wine Wood", price: "¥1,700" },
+            { name: "イチローズモルト MWR", price: "¥1,700" },
+            { name: "笹の川酒造 チェリーウィスキー", price: "¥900" },
+          ]
+        },
+        {
+          title: "Gin",
+          items: [
+            { name: "ボビーズ", price: "¥1,200" },
+            { name: "季の美", price: "¥1,000" },
+            { name: "ヘンドリックス", price: "¥1,200" },
+            { name: "タンカレー", price: "¥1,000" },
+            { name: "ボンベイサファイア", price: "¥1,000" },
+            { name: "ゴードン 37.5", price: "¥900" },
+          ]
+        },
+        {
+          title: "Rum・Tequila・Vodka",
+          items: [
+            { name: "ロンサカパ 23", price: "¥1,200" },
+            { name: "ハバナクラブ 3 年", price: "¥900" },
+            { name: "スミノフ No,21", price: "¥900" },
+            { name: "クエルボ 1800 レポサド", price: "¥1,200" },
+          ]
+        },
+        {
+          title: "Beer",
+          items: [
+            { name: "キリン一番搾り 334ml", price: "¥900" },
+            { name: "キリンラガー 334ml", price: "¥900" },
+            { name: "アサヒ ZERO 0%", price: "¥800" },
+          ]
+        },
+        {
+          title: "焼酎",
+          items: [
+            { name: "三岳 【芋】", price: "¥900" },
+            { name: "黒霧島 【芋】", price: "¥900" },
+            { name: "DAIYAME 【芋】", price: "¥900" },
+            { name: "二階堂 【麦】", price: "¥900" },
+            { name: "吉四六 【麦】", price: "¥1,000" },
+            { name: "ウーロンハイ", price: "¥900" },
+            { name: "緑茶ハイ", price: "¥900" },
+          ]
+        },
+        {
+          title: "Wine・Champagne",
+          items: [
+            { name: "ワインカップ 赤", price: "¥900" },
+            { name: "ワインカップ 白", price: "¥900" },
+            { name: "ヴーヴ・クリコ", price: "¥23,000" },
+            { name: "ルイナール ブラン", price: "¥35,000" },
+          ]
+        },
+        {
+          title: "Cocktail",
+          items: [
+            { name: "ジントニック", price: "¥1,000" },
+            { name: "ジンバック", price: "¥1,000" },
+            { name: "ジンリッキー", price: "¥1,000" },
+            { name: "ウォッカトニック", price: "¥1,000" },
+            { name: "モスコミュール", price: "¥1,000" },
+            { name: "ウォッカリッキー", price: "¥1,000" },
+            { name: "ラムトニック", price: "¥1,000" },
+            { name: "ラムバック", price: "¥1,000" },
+            { name: "ラムリッキー", price: "¥1,000" },
+            { name: "ネグローニ", price: "¥1,300" },
+            { name: "ゴットファザー", price: "¥1,200" },
+            { name: "カミカゼ", price: "¥1,100" },
+            { name: "XYZ", price: "¥1,100" },
+            { name: "マタドール", price: "¥1,100" },
+          ]
+        }
+      ];
+
+      return (
+        <div className="min-h-screen bg-black text-gray-200 font-serif selection:bg-gray-800">
+          {/* Navigation Bar */}
+          <nav 
+            className={`fixed w-full z-50 transition-all duration-300 ${
+              scrolled ? 'bg-black/95 backdrop-blur-sm shadow-sm py-2 border-b border-gray-800' : 'bg-black py-4'
+            }`}
+          >
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex justify-between items-center h-16">
+                {/* Logo Text (Left) */}
+                <div className="flex-shrink-0">
+                  <a href="#top" className="text-3xl font-bold tracking-widest text-white">
+                    629
+                  </a>
+                </div>
+                
+                {/* Hamburger menu button (常に表示) */}
+                <div className="flex items-center">
+                  <button 
+                    onClick={toggleMenu} 
+                    className="text-white hover:text-gray-300 focus:outline-none transition-colors"
+                    aria-label="Toggle menu"
+                    aria-expanded={isMenuOpen}
+                  >
+                    {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Menu Overlay */}
+            <div 
+              className={`absolute w-full bg-gray-900 border-b border-gray-800 shadow-lg transition-all duration-300 overflow-hidden ${
+                isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+              }`}
+            >
+              <div className="px-4 pt-2 pb-6 space-y-2">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-3 py-3 text-base uppercase tracking-widest text-center text-white hover:bg-gray-800 rounded-md transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </nav>
+
+          {/* Hero Section (Top) */}
+          <section id="top" className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto flex flex-col items-center justify-center min-h-screen">
+            <div className="w-full max-w-3xl mb-16 relative animate-fade-in-up">
+               {/* 添付されたロゴ画像を使用 */}
+               <img 
+                 src="images/logo.jpg" 
+                 alt="Bar 629 Logo" 
+                 className="w-full h-auto drop-shadow-sm hover:drop-shadow-md transition-shadow duration-500 rounded-sm" 
+                 onError={(e) => {
+                   e.target.style.display = 'none';
+                   const fallback = e.target.nextElementSibling;
+                   if(fallback) fallback.style.display = 'flex';
+                 }}
+               />
+               {/* フォールバック用のテキストロゴ（画像が読み込めない時だけ表示） */}
+               <div className="hidden flex-col items-center justify-center py-20 border-2 border-dashed border-gray-700 rounded-lg bg-gray-900">
+                 <span className="text-6xl font-bold text-gray-500 mb-4">629</span>
+                 <span className="text-sm text-gray-600">※ここにimages/logo.jpgが表示されます</span>
+               </div>
+            </div>
+            
+            <div className="text-center space-y-4">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-light tracking-widest text-white leading-relaxed">
+                いつもの仲間と、<br className="md:hidden" />心地よい時間を。
+              </h1>
+              <p className="text-xs md:text-sm text-gray-400 font-thin tracking-[0.2em]">
+                Cozy moments with familiar faces.
+              </p>
+            </div>
+          </section>
+
+          {/* About Us Section */}
+          <section id="about" className="py-24">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+              <h2 className="text-2xl font-medium tracking-widest uppercase mb-16 text-white flex items-center justify-center">
+                <span className="w-8 h-px bg-gray-600 mr-6"></span>
+                About Us
+                <span className="w-8 h-px bg-gray-600 ml-6"></span>
+              </h2>
+
+              <div className="w-full max-w-2xl mx-auto mb-12 relative animate-fade-in-up">
+               <img
+                 src="images/inside.jpg"
+                 alt="Bar 629 Inside"
+                 className="w-full h-auto drop-shadow-sm rounded-lg opacity-90"
+                 onError={(e) => {
+                   e.target.style.display = 'none';
+                   const fallback = e.target.nextElementSibling;
+                   if(fallback) fallback.style.display = 'flex';
+                 }}
+               />
+               <div className="hidden flex-col items-center justify-center py-20 border-2 border-dashed border-gray-700 rounded-lg bg-gray-900">
+                 <span className="text-gray-500">※ここにimages/inside.jpgが表示されます</span>
+               </div>
+            </div>
+              
+              <div className="space-y-8 text-gray-300 leading-loose text-base md:text-lg font-light">
+                <p>
+                  中目黒のどこかに位置する、強者たちの聖域。<br />
+                  第一線を生き抜く者たちが武装を解除し、<br className="hidden md:block"/>いつもの仲間と無防備な時間を共有するためのシェルター。
+                </p>
+                <p>
+                  研ぎ澄まされた一杯のグラスとともに、<br />
+                  静寂に包まれた「余白」と「共鳴」を提供します。
+                </p>
+                <p className="pt-4">
+                  ふとした瞬間、<br />
+                  星降る夜の出会いがあるように。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Menu Section */}
+          <section id="menu" className="py-24">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-2xl font-medium tracking-widest uppercase mb-16 text-center text-white flex items-center justify-center">
+                <span className="w-8 h-px bg-gray-600 mr-6"></span>
+                Menu
+                <span className="w-8 h-px bg-gray-600 ml-6"></span>
+              </h2>
+              
+              <div className="grid md:grid-cols-2 gap-8">
+                {menuCategories.map((category, index) => (
+                  <div key={index} className="bg-gray-900 p-6 md:p-8 shadow-sm border border-gray-800 rounded-sm">
+                    <h3 className="text-lg font-medium mb-6 text-center text-white tracking-widest border-b border-gray-700 pb-3">
+                      {category.title}
+                    </h3>
+                    <ul className="space-y-4">
+                      {category.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="flex justify-between items-end border-b border-dotted border-gray-700 pb-1">
+                          <span className="text-gray-200 text-sm md:text-base pr-4">{item.name}</span>
+                          <span className="text-gray-400 font-sans text-sm whitespace-nowrap">{item.price}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-16 text-center text-sm md:text-base text-gray-400 tracking-wide">
+                <p>※その他カクテルもご用意しております。詳細等はバーテンダーにお聞きください。</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Access Section */}
+          <section id="access" className="py-24">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-2xl font-medium tracking-widest uppercase mb-16 text-center text-white flex items-center justify-center">
+                <span className="w-8 h-px bg-gray-600 mr-6"></span>
+                Access
+                <span className="w-8 h-px bg-gray-600 ml-6"></span>
+              </h2>
+
+              <div className="bg-gray-900 p-10 md:p-16 shadow-sm border border-gray-800 text-center rounded-sm">
+                <p className="text-gray-300 leading-loose mb-12">
+                  当店は、お客様に静かで穏やかな時間を過ごしていただくため、<br className="hidden md:block"/>
+                  <span className="font-medium text-white">紹介制</span>とさせていただいております。<br />
+                  そのため、詳しい住所や電話番号などは非公開としております。
+                </p>
+                
+                <div className="flex justify-center">
+                  <div className="flex items-start space-x-5 text-left">
+                    <Clock className="text-gray-300 mt-1 flex-shrink-0" size={20} />
+                    <div>
+                      <h4 className="font-medium mb-1 text-sm tracking-widest uppercase text-gray-500">Hours</h4>
+                      <p className="text-gray-200 leading-relaxed">
+                        20:00 - 4:00 (L.O. 3:30)<br />
+                        <span className="text-sm text-red-400/80">Closed on Mondays</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <footer className="bg-black text-white py-12 text-center border-t border-gray-800">
+            <div className="flex justify-center items-center space-x-8 mb-8">
+              <a href="#" className="text-gray-500 hover:text-white transition-colors"><Instagram size={20} /></a>
+              <a href="#" className="text-gray-500 hover:text-white transition-colors"><Star size={20} /></a>
+            </div>
+            <div className="text-2xl font-bold tracking-widest text-white/90 mb-4">629</div>
+            <p className="text-xs tracking-widest uppercase font-light text-gray-500">
+              &copy; {new Date().getFullYear()} Bar 629. All rights reserved.
+            </p>
+          </footer>
+        </div>
+      );
+    }
+
+    // Reactアプリの起動
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
