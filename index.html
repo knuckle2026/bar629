@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>中目黒のバー629</title>
+  <meta name="description" content="いつもの仲間と、心地よい時間を。">
   
   <!-- Tailwind CSS の読み込み -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -64,8 +65,129 @@
       const navLinks = [
         { name: 'Top', href: '#top' },
         { name: 'About Us', href: '#about' },
-        { name: 'Price', href: '#price' },
+        { name: 'Menu', href: '#menu' },
         { name: 'Access', href: '#access' },
+      ];
+
+      // メニューデータ
+      const menuCategories = [
+        {
+          title: "Scotch Whisky",
+          items: [
+            { name: "ザ・マッカラン 12 年〔S.O.C〕", price: "¥2,000" },
+            { name: "グレンリベット 12 年", price: "¥1,300" },
+            { name: "クラガンモア 12 年", price: "¥1,200" },
+            { name: "ラフロイグ 10 年", price: "¥1,600" },
+            { name: "カリラ 12 年", price: "¥1,500" },
+            { name: "ブルックラディ", price: "¥1,400" },
+            { name: "ボウモア 12 年", price: "¥1,400" },
+            { name: "アードベック 10 年", price: "¥1,400" },
+            { name: "ラガヴーリン 16 年", price: "¥1,900" },
+            { name: "グレンファークラス 12 年", price: "¥1,600" },
+            { name: "オーバン 14 年", price: "¥1,800" },
+            { name: "アランモルト 10 年", price: "¥1,500" },
+            { name: "タリスカー 10 年", price: "¥1,500" },
+          ]
+        },
+        {
+          title: "Bourbon & Tennessee Whiskey",
+          items: [
+            { name: "ジャックダニエル BK", price: "¥900" },
+            { name: "I.W ハーパー G メダル", price: "¥900" },
+            { name: "メーカーズマーク", price: "¥1,000" },
+          ]
+        },
+        {
+          title: "Blended Whiskey",
+          items: [
+            { name: "オールドパー 12 年", price: "¥1,200" },
+            { name: "カナディアンクラブ", price: "¥900" },
+          ]
+        },
+        {
+          title: "Japanese Whiskey",
+          items: [
+            { name: "山崎", price: "¥1,700" },
+            { name: "白州", price: "¥1,700" },
+            { name: "響 Japanese Harmony", price: "¥1,700" },
+            { name: "響 Blender’s Choice", price: "¥2,300" },
+            { name: "サントリー角 復刻版", price: "¥1,000" },
+            { name: "竹鶴", price: "¥1,700" },
+            { name: "ザ・ニッカ", price: "¥1,800" },
+            { name: "ニッカ フロンティア", price: "¥1,000" },
+            { name: "イチローズモルト Wine Wood", price: "¥1,700" },
+            { name: "イチローズモルト MWR", price: "¥1,700" },
+            { name: "笹の川酒造 チェリーウィスキー", price: "¥900" },
+          ]
+        },
+        {
+          title: "Gin",
+          items: [
+            { name: "ボビーズ", price: "¥1,200" },
+            { name: "季の美", price: "¥1,000" },
+            { name: "ヘンドリックス", price: "¥1,200" },
+            { name: "タンカレー", price: "¥1,000" },
+            { name: "ボンベイサファイア", price: "¥1,000" },
+            { name: "ゴードン 37.5", price: "¥900" },
+          ]
+        },
+        {
+          title: "Rum・Tequila・Vodka",
+          items: [
+            { name: "ロンサカパ 23", price: "¥1,200" },
+            { name: "ハバナクラブ 3 年", price: "¥900" },
+            { name: "スミノフ No,21", price: "¥900" },
+            { name: "クエルボ 1800 レポサド", price: "¥1,200" },
+          ]
+        },
+        {
+          title: "Beer",
+          items: [
+            { name: "キリン一番搾り 334ml", price: "¥900" },
+            { name: "キリンラガー 334ml", price: "¥900" },
+            { name: "アサヒ ZERO 0%", price: "¥800" },
+          ]
+        },
+        {
+          title: "焼酎",
+          items: [
+            { name: "三岳 【芋】", price: "¥900" },
+            { name: "黒霧島 【芋】", price: "¥900" },
+            { name: "DAIYAME 【芋】", price: "¥900" },
+            { name: "二階堂 【麦】", price: "¥900" },
+            { name: "吉四六 【麦】", price: "¥1,000" },
+            { name: "ウーロンハイ", price: "¥900" },
+            { name: "緑茶ハイ", price: "¥900" },
+          ]
+        },
+        {
+          title: "Wine・Champagne",
+          items: [
+            { name: "ワインカップ 赤", price: "¥900" },
+            { name: "ワインカップ 白", price: "¥900" },
+            { name: "ヴーヴ・クリコ", price: "¥23,000" },
+            { name: "ルイナール ブラン", price: "¥35,000" },
+          ]
+        },
+        {
+          title: "Cocktail",
+          items: [
+            { name: "ジントニック", price: "¥1,000" },
+            { name: "ジンバック", price: "¥1,000" },
+            { name: "ジンリッキー", price: "¥1,000" },
+            { name: "ウォッカトニック", price: "¥1,000" },
+            { name: "モスコミュール", price: "¥1,000" },
+            { name: "ウォッカリッキー", price: "¥1,000" },
+            { name: "ラムトニック", price: "¥1,000" },
+            { name: "ラムバック", price: "¥1,000" },
+            { name: "ラムリッキー", price: "¥1,000" },
+            { name: "ネグローニ", price: "¥1,300" },
+            { name: "ゴットファザー", price: "¥1,200" },
+            { name: "カミカゼ", price: "¥1,100" },
+            { name: "XYZ", price: "¥1,100" },
+            { name: "マタドール", price: "¥1,100" },
+          ]
+        }
       ];
 
       return (
@@ -176,61 +298,52 @@
                </div>
             </div>
               
-              <div className="space-y-8 text-gray-600 leading-loose text-base md:text-lg font-light">
-                <p>
-                  中目黒のどこかに位置する、強者たちの聖域。<br />
-                  第一線を生き抜く者たちが武装を解除し、<br className="hidden md:block"/>いつもの仲間と無防備な時間を共有するためのシェルター。
-                </p>
-                <p>
-                  研ぎ澄まされた一杯のグラスとともに、<br />
-                  静寂に包まれた「余白」と「共鳴」を提供します。
-                </p>
-                <p className="pt-4">
-                  ふとした瞬間、<br />
-                  星降る夜の出会いがあるように。
-                </p>
-              </div>
+            <div className="space-y-8 text-gray-600 leading-loose text-base md:text-lg font-light text-center">
+              <p>
+                中目黒のどこかに位置する、強者たちの聖域。<br />
+                第一線を生き抜く者たちが武装を解除し、<br className="hidden md:block"/>いつもの仲間と無防備な時間を共有するためのシェルター。
+              </p>
+              <p>
+                研ぎ澄まされた一杯のグラスとともに、<br />
+                静寂に包まれた「余白」と「共鳴」を提供します。
+              </p>
+              <p className="pt-4">
+                ふとした瞬間、<br />
+                星降る夜の出会いがあるように。
+              </p>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Price Section */}
-          <section id="price" className="py-24">
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Menu Section */}
+        <section id="menu" className="py-24">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <h2 className="text-2xl font-medium tracking-widest uppercase mb-16 text-center text-[#1e293b] flex items-center justify-center">
                 <span className="w-8 h-px bg-indigo-900 mr-6"></span>
-                Price
+                Menu
                 <span className="w-8 h-px bg-indigo-900 ml-6"></span>
               </h2>
               
-              <div className="max-w-2xl mx-auto">
-                {/* Drink */}
-                <div className="bg-white p-8 md:p-12 shadow-sm border border-gray-100 rounded-sm">
-                  <h3 className="text-xl font-medium mb-8 text-center text-[#1e293b] uppercase tracking-widest border-b border-gray-200 pb-4">Drink</h3>
-                  <ul className="space-y-6">
-                    <li className="flex justify-between items-end border-b border-dotted border-gray-300 pb-1">
-                      <span className="text-gray-800">季節のフレッシュフルーツカクテル</span>
-                      <span className="text-gray-500 font-sans text-sm">¥1,400~</span>
-                    </li>
-                    <li className="flex justify-between items-end border-b border-dotted border-gray-300 pb-1">
-                      <span className="text-gray-800">スタンダードカクテル</span>
-                      <span className="text-gray-500 font-sans text-sm">¥1,200~</span>
-                    </li>
-                    <li className="flex justify-between items-end border-b border-dotted border-gray-300 pb-1">
-                      <span className="text-gray-800">本日のクラフトジン</span>
-                      <span className="text-gray-500 font-sans text-sm">¥1,100~</span>
-                    </li>
-                    <li className="flex justify-between items-end border-b border-dotted border-gray-300 pb-1">
-                      <span className="text-gray-800">シングルモルトウィスキー</span>
-                      <span className="text-gray-500 font-sans text-sm">¥1,200~</span>
-                    </li>
-                    <li className="flex justify-between items-end border-b border-dotted border-gray-300 pb-1">
-                      <span className="text-gray-800 flex items-center">
-                        ノンアルコールカクテル（モクテル）
-                      </span>
-                      <span className="text-gray-500 font-sans text-sm">¥1,000~</span>
-                    </li>
-                  </ul>
-                </div>
+              <div className="grid md:grid-cols-2 gap-8">
+                {menuCategories.map((category, index) => (
+                  <div key={index} className="bg-white p-6 md:p-8 shadow-sm border border-gray-100 rounded-sm">
+                    <h3 className="text-lg font-medium mb-6 text-center text-[#1e293b] tracking-widest border-b border-gray-200 pb-3">
+                      {category.title}
+                    </h3>
+                    <ul className="space-y-4">
+                      {category.items.map((item, itemIdx) => (
+                        <li key={itemIdx} className="flex justify-between items-end border-b border-dotted border-gray-300 pb-1">
+                          <span className="text-gray-800 text-sm md:text-base pr-4">{item.name}</span>
+                          <span className="text-gray-500 font-sans text-sm whitespace-nowrap">{item.price}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-16 text-center text-sm md:text-base text-gray-500 tracking-wide">
+                <p>※その他カクテルもご用意しております。詳細等はバーテンダーにお聞きください。</p>
               </div>
             </div>
           </section>
